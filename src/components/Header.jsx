@@ -9,7 +9,7 @@ export default function Header() {
             Fredrik Furuskog
           </div>
           <div className="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-500 group-hover:text-zinc-300">
-            Portfolio
+            Game Programmer
           </div>
         </Link>
 

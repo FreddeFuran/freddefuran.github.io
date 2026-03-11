@@ -82,14 +82,17 @@ function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured
             </div>
           )}
 
-          <div className="mt-7 flex items-center gap-4">
-            <Link
-              to={project.slug === "specialization" ? "/specialization" : "/"}
-              className="border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-100 transition hover:bg-white/10"
-            >
-              Read More
-            </Link>
-          </div>
+          {project.hasDetailPage && (
+            <div className="mt-7 flex items-center gap-4">
+              <Link 
+                to={`/project/${project.slug}`}
+                className="border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-100 transition hover:bg-white/10"
+              >
+                Read More
+              </Link>
+            </div>
+          )}
+          
         </div>
       </div>
     </article>
@@ -141,12 +144,13 @@ export default function HomePage() {
   const projects = [
     {
       slug: "specialization",
+      hasDetailPage : true,
       label: "Specialization",
       title: "In-Engine VFX Editor",
       image: "/projects/project_specialization.png",
       hoverBackground: "/backgrounds/background_01.png",
       description:
-        "A custom in-engine VFX editor built for authoring, playback preview and faster iteration directly inside the engine.",
+        "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime.",
       bullets: [
         "Direct in-engine editing workflow",
         "Playback preview and timing control",
@@ -156,29 +160,20 @@ export default function HomePage() {
       meta: "Featured",
     },
     {
-      slug: "pawns-gambit",
-      label: "Game Project 2 — Mobile Puzzle Game",
-      title: "Pawn's Gambit",
-      image: "/projects/project_02.png",
-      hoverBackground: "/backgrounds/background_02.png",
+      slug: "aliens-stole-my-ship",
+      hasDetailPage : true,
+      label: "Game Project 6 — 3PP Exploration Adventure Game",
+      title: "Aliens Stole My Sh?*!",
+      image: "/projects/project_06.png",
+      hoverBackground: "/backgrounds/background_01.png",
       description:
-        "Enemy AI development for a mobile project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
-      bullets: ["Enemy AI implementation", "Gameplay-driven behavior", "Award-nominated student project"],
-      contributions: ["Enemy AI", "Gameplay Systems"],
-    },
-    {
-      slug: "slashimi",
-      label: "Game Project 4 — Topdown Adventure Game",
-      title: "Slashimi",
-      image: "/projects/project_04.png",
-      hoverBackground: "/backgrounds/background_03.png",
-      description:
-        "Worked mainly on NPC AI systems, focusing on behavior logic and encounter-driven decision making.",
-      bullets: ["NPC behavior systems", "Encounter support", "Gameplay logic"],
-      contributions: ["Enemy AI", "Gameplay Systems"],
+        "Implemented and wrapped PhysX, built out the VFX pipeline, and worked on implementation of Compute Shaders and various graphics features.",
+      bullets: ["PhysX integration", "VFX pipeline development", "General graphics programming"],
+      contributions: ["PhysX Integration", "VFX Pipeline", "Graphics Programming"],
     },
     {
       slug: "spite-blood-and-gold",
+      hasDetailPage : true,
       label: "Game Project 5 — Topdown Hack-and-Slash Game",
       title: "Spite: Blood and Gold",
       image: "/projects/project_05.png",
@@ -193,24 +188,38 @@ export default function HomePage() {
       contributions: ["Backend", "Graphics Programming", "Optimization"],
     },
     {
-      slug: "aliens-stole-my-shit",
-      label: "Game Project 6 — 3PP Exploration Adventure Game",
-      title: "Aliens Stole My Sh?*!",
-      image: "/projects/project_06.png",
-      hoverBackground: "/backgrounds/background_01.png",
+      slug: "pawns-gambit",
+      hasDetailPage : false,
+      label: "Game Project 2 — Mobile Puzzle Game",
+      title: "Pawn's Gambit",
+      image: "/projects/project_02.png",
+      hoverBackground: "/backgrounds/background_02.png",
       description:
-        "Implemented and wrapped PhysX, built out the VFX pipeline, and worked on multiple graphics features.",
-      bullets: ["PhysX integration", "VFX pipeline development", "Graphics feature work"],
-      contributions: ["PhysX Integration", "VFX Pipeline", "Graphics Programming"],
+        "Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
+      bullets: ["Enemy AI implementation", "Award-winning student project"],
+      contributions: ["Enemy AI", "Gameplay Systems"],
+    },
+    {
+      slug: "slashimi",
+      hasDetailPage : false,
+      label: "Game Project 4 — Topdown Adventure Game",
+      title: "Slashimi",
+      image: "/projects/project_04.png",
+      hoverBackground: "/backgrounds/background_03.png",
+      description:
+        "Worked mainly on NPC AI systems, focusing on behavior logic and gameplay systems.",
+      bullets: ["NPC behavior systems", "A-star pathfinding", "Gameplay logic"],
+      contributions: ["Enemy AI", "Gameplay Systems"],
     },
     {
       slug: "tba",
+      hasDetailPage : false,
       label: "Game Project 7",
       title: "TBA",
       image: "/projects/project_07.png",
       hoverBackground: "/backgrounds/background_02.png",
       description:
-        "Upcoming project. Detailed information will be added once the project can be shown properly.",
+        "Upcoming project. Detailed information will be added once the project has been finished.",
       bullets: [],
       contributions: [],
     },
@@ -245,7 +254,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between px-6 py-6">
             <div>
               <div className="text-[1.15rem] font-semibold tracking-tight text-white">Fredrik Furuskog</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-500">Portfolio</div>
+              <div className="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-500">Game Programmer</div>
             </div>
 
             <div className="flex items-center gap-6">
@@ -256,7 +265,7 @@ export default function HomePage() {
                 {previewMode === "desktop" ? "Mobile Preview" : "Desktop Preview"}
               </button>
 
-              <nav className="hidden gap-6 text-sm text-zinc-400 md:flex">
+              <nav className="flex gap-4 text-sm text-zinc-400">
                 <button
                   onClick={() =>
                     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
