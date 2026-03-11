@@ -58,23 +58,28 @@ function FileIcon() {
 export default function Footer() {
   return (
     <footer className="border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
-          Contact
-        </p>
+      <div className="mx-auto max-w-6xl px-6 py-10 md:grid md:grid-cols-2 md:gap-12">
+        
+        {/* Left column */}
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
+            Contact
+          </p>
 
-        <p className="mt-4 max-w-2xl leading-8 text-zinc-300">
-          I am part of The Game Assembly’s internship program. As per the
-          agreement between the Games Industry and The Game Assembly, neither
-          student nor company may be in contact with one another regarding
-          internships before April 15th. Any internship offers can be made on
-          April 27th, at the earliest.
-        </p>
+          <p className="mt-4 max-w-2xl leading-8 text-zinc-300">
+            I am part of The Game Assembly’s internship program. As per the
+            agreement between the Games Industry and The Game Assembly, neither
+            student nor company may be in contact with one another regarding
+            internships before April 15th. Any internship offers can be made on
+            April 27th, at the earliest.
+          </p>
+        </div>
 
-        <div className="mt-8 flex flex-wrap gap-4">
+        {/* Right column */}
+        <div className="mt-8 md:mt-0 grid grid-cols-1 gap-3">
           <a
             href="mailto:fredrik.furuskog@gmail.com"
-            className="flex items-center gap-2 border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition hover:bg-white/10"
+            className="flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-3 text-sm text-zinc-200 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
           >
             <MailIcon />
             Email
@@ -84,7 +89,7 @@ export default function Footer() {
             href="https://linkedin.com/in/fredrikfuruskog/"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition hover:bg-white/10"
+            className="flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-3 text-sm text-zinc-200 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
           >
             <LinkedInIcon />
             LinkedIn
@@ -92,12 +97,20 @@ export default function Footer() {
 
           <a
             href="#"
-            className="flex items-center gap-2 border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition hover:bg-white/10"
+            className="flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-3 text-sm text-zinc-200 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
           >
             <FileIcon />
             CV
           </a>
         </div>
+
+      </div>
+
+      {/* Bottom line */}
+      <div className="mx-auto max-w-6xl px-6 pb-10">
+        <p className="text-xs text-zinc-500">
+          Fredrik Furuskog
+        </p>
       </div>
     </footer>
   );
