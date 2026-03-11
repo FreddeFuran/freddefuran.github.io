@@ -327,7 +327,7 @@ export default function HomePage() {
         {showTopButton && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-20 border border-white/10 bg-black/60 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/10"
+            className="fixed bottom-20 right-6 z-20 border border-white/10 bg-black/60 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/10"
           >
             ↑ Top
           </button>
