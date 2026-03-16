@@ -146,32 +146,34 @@ export default function SpecializationPage() {
           <CodeSnippet
             title="Mesh Structs"
             language="cpp"
-            code={`  struct MeshSharedData
-  {
+          code={`struct MeshSharedData
+{
     CU::Transform<float> mySharedTransform;
+    CU::Curve<CU::Vector3<float>> myVelocityOverLifetime;
+
     std::unordered_map<std::string, std::filesystem::path> myMaterialNameToPathList;
     std::vector<std::shared_ptr<Material>> myMaterials;
     std::vector<size_t> myBatchKeys;
     std::shared_ptr<Mesh> myMesh = nullptr;
-    CU::Curve<CU::Vector3<float>> myVelocityOverLifetime;
+    
     float myStartingTime = 0.0f;
     float myPlayTime = 1.0f;
     uint16_t myRenderFlags = 0x00;
-  };
+};
 
-  struct MeshInstanceData
-  {
+struct MeshInstanceData
+{
     CU::Transform<float> myLocalTransform;
     unsigned myID = ObjectIDGenerator::Get().GenerateID();
     float myLifeTime = 0.0f;
     bool myIsActive = false;
-  };
+};
 
-  struct MeshEntry
-  {
+struct MeshEntry
+{
     MeshInstanceData myInstanceData;
     std::shared_ptr<MeshSharedData> mySharedData = nullptr;
-  };`
+};`
           }
           />
 
@@ -201,8 +203,8 @@ struct TimelineState
 
 struct TimelineEntryTimings
 {
-	float PlayTime = 1.0f;
-	float StartingTime = 0.0f;
+    float PlayTime = 1.0f;
+    float StartingTime = 0.0f;
 };
 
 struct TimelineContext
@@ -226,14 +228,14 @@ struct TimelineDragState
             code={`class CommandInterface
 {
 public:
-	CommandInterface() = default;
-	virtual ~CommandInterface() = default;
-	virtual void Execute() {};
-	virtual void Rollback() {};
-	bool CanRollback() { return myCanBeRollbacked; };
+    CommandInterface() = default;
+    virtual ~CommandInterface() = default;
+    virtual void Execute() {};
+    virtual void Rollback() {};
+    bool CanRollback() { return myCanBeRollbacked; };
 
 protected:
-	bool myCanBeRollbacked = true;
+    bool myCanBeRollbacked = true;
 };
 
 //Example usage

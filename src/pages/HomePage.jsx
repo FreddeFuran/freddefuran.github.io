@@ -39,9 +39,7 @@ function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured
             <img
               src={project.image}
               alt={project.title}
-              className={`w-full object-cover transition duration-500 ease-out group-hover:scale-[1.035] ${
-                previewMode === "mobile" ? "h-[240px]" : featured ? "h-[320px] lg:h-[360px]" : "h-[240px] lg:h-[280px]"
-              }`}
+              className="w-full aspect-video object-cover transition duration-500 ease-out group-hover:scale-[1.035]"
             />
           </div>
         </div>
