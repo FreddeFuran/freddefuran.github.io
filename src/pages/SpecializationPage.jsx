@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CodeSnippet from "../components/Codeblock";
+import TopButton from "../components/TopButton";
 
 export default function SpecializationPage() {
   return (
@@ -246,7 +247,7 @@ if (ImGui::Button("Add Mesh Entry"))
 
 void VFXEditor::ExecuteEditorCommand(std::shared_ptr<CommandInterface> aCommandToPush)
 {
-    ClearCommandStack(myRedoStack);
+    myRedoStack.clear();
     myUndoStack.push(aCommandToPush);
     aCommandToPush->Execute();
 }
@@ -257,8 +258,11 @@ void VFXEditor::ExecuteEditorCommand(std::shared_ptr<CommandInterface> aCommandT
         </section>
 
       </main>
+      <TopButton />
 
-      <Footer />
+      <div id="contact" className="mt-10 scroll-mt-24">
+          <Footer />
+        </div>
     </div>
   );
 }

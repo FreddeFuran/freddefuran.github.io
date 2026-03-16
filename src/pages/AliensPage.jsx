@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import TopButton from "../components/TopButton";
 
 export default function AliensPage() {
   return (
@@ -95,8 +96,10 @@ export default function AliensPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
+      <TopButton />
+      <div id="contact" className="mt-10 scroll-mt-24">
+          <Footer />
+        </div>
     </div>
   );
 }

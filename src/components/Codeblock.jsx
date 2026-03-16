@@ -31,10 +31,10 @@ export default function CodeSnippet({ title, language = "cpp", code }) {
   };
 
   return (
-    <div
-      ref={wrapperRef}
-      className="overflow-hidden border border-white/10 bg-white/[0.03]"
-    >
+      <div
+        ref={wrapperRef}
+        className="scroll-mt-24 overflow-hidden border border-white/10 bg-white/[0.03]"
+      >
       <button
         onClick={handleToggle}
         className="flex w-full items-center justify-between px-4 py-3 text-left text-sm text-zinc-200 hover:bg-white/[0.03]"

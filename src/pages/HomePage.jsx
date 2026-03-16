@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import TopButton from "../components/TopButton";
 
 function RevealSection({ children, className = "", delay = 0, ...props }) {
   const [visible, setVisible] = useState(false);
@@ -22,19 +24,17 @@ function RevealSection({ children, className = "", delay = 0, ...props }) {
   );
 }
 
-function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured = false }) {
+function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
   return (
     <article
       onMouseEnter={() => onHoverStart(project.hoverBackground || project.image)}
       onMouseLeave={onHoverEnd}
-      className={`group border-b border-white/10 pb-10 transition-transform duration-300 hover:-translate-y-1 ${featured ? "pb-12" : ""}`}
+      className={`group border-b border-white/10 pb-10 transition-transform duration-300 hover:-translate-y-1 ${
+        featured ? "pb-12" : ""
+      }`}
     >
-      <div
-        className={`grid gap-6 ${
-          previewMode === "mobile" ? "grid-cols-1" : "md:grid-cols-[1.05fr_0.95fr]"
-        }`}
-      >
-        <div className={`${previewMode === "mobile" ? "order-1" : featured ? "order-2" : "order-1"}`}>
+      <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-start">
+        <div className={featured ? "order-2" : "order-1"}>
           <div className="overflow-hidden border border-white/10 bg-white/[0.03]">
             <img
               src={project.image}
@@ -44,15 +44,23 @@ function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured
           </div>
         </div>
 
-        <div className={`${previewMode === "mobile" ? "order-2" : featured ? "order-1" : "order-2"} flex flex-col justify-center`}>
+        <div className={`${featured ? "order-1" : "order-2"} flex flex-col`}>
           <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">{project.label}</p>
-              <h3 className={`${featured ? "mt-2 text-3xl md:text-4xl" : "mt-2 text-2xl"} font-semibold tracking-tight text-white transition duration-300 group-hover:text-zinc-50`}>
+              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
+                {project.label}
+              </p>
+              <h3
+                className={`${
+                  featured ? "mt-2 text-3xl md:text-4xl" : "mt-2 text-2xl"
+                } font-semibold tracking-tight text-white transition duration-300 group-hover:text-zinc-50`}
+              >
                 {project.title}
               </h3>
             </div>
-            {project.meta && <span className="text-xs text-zinc-500">{project.meta}</span>}
+            {project.meta && (
+              <span className="text-xs text-zinc-500">{project.meta}</span>
+            )}
           </div>
 
           <p className="mt-4 max-w-2xl leading-8 text-zinc-300">
@@ -82,7 +90,7 @@ function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured
 
           {project.hasDetailPage && (
             <div className="mt-7 flex items-center gap-4">
-              <Link 
+              <Link
                 to={`/project/${project.slug}`}
                 className="border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-100 transition hover:bg-white/10"
               >
@@ -90,59 +98,16 @@ function ProjectBlock({ project, previewMode, onHoverStart, onHoverEnd, featured
               </Link>
             </div>
           )}
-          
         </div>
       </div>
     </article>
   );
 }
 
-export default function HomePage() {
-  const [previewMode, setPreviewMode] = useState("desktop");
-  const [activeBg, setActiveBg] = useState(0);
-  const [hoveredBackground, setHoveredBackground] = useState(null);
-  const [showTopButton, setShowTopButton] = useState(false);
-
-  const backgrounds = useMemo(
-    () => [
-      "/backgrounds/background_01.png",
-      "/backgrounds/background_02.png",
-      "/backgrounds/background_03.png",
-      "/backgrounds/background_04.png",
-    ],
-    []
-  );
-
-  useEffect(() => {
-    if (hoveredBackground) return;
-
-    const interval = setInterval(() => {
-      setActiveBg((prev) => (prev + 1) % backgrounds.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [backgrounds.length, hoveredBackground]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowTopButton(window.scrollY > 500);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const projects = [
+const projects = [
     {
       slug: "specialization",
-      hasDetailPage : true,
+      hasDetailPage: true,
       label: "Specialization",
       title: "In-Engine VFX Editor",
       image: "/projects/project_specialization.png",
@@ -159,23 +124,31 @@ export default function HomePage() {
     },
     {
       slug: "aliens-stole-my-ship",
-      hasDetailPage : true,
+      hasDetailPage: true,
       label: "Game Project 6 — 3PP Exploration Adventure Game",
       title: "Aliens Stole My Sh?*!",
       image: "/projects/project_06.png",
-      hoverBackground: "/backgrounds/background_01.png",
+      hoverBackground: "/backgrounds/background_06.png",
       description:
         "Implemented and wrapped PhysX, built out the VFX pipeline, and worked on implementation of Compute Shaders and various graphics features.",
-      bullets: ["PhysX integration", "VFX pipeline development", "General graphics programming"],
-      contributions: ["PhysX Integration", "VFX Pipeline", "Graphics Programming"],
+      bullets: [
+        "PhysX integration",
+        "VFX pipeline development",
+        "General graphics programming",
+      ],
+      contributions: [
+        "PhysX Integration",
+        "VFX Pipeline",
+        "Graphics Programming",
+      ],
     },
     {
       slug: "spite-blood-and-gold",
-      hasDetailPage : true,
+      hasDetailPage: true,
       label: "Game Project 5 — Topdown Hack-and-Slash Game",
       title: "Spite: Blood and Gold",
       image: "/projects/project_05.png",
-      hoverBackground: "/backgrounds/background_04.png",
+      hoverBackground: "/backgrounds/background_02.png",
       description:
         "Backend and graphics programming with a strong focus on optimization and runtime performance.",
       bullets: [
@@ -187,11 +160,11 @@ export default function HomePage() {
     },
     {
       slug: "pawns-gambit",
-      hasDetailPage : false,
+      hasDetailPage: false,
       label: "Game Project 2 — Mobile Puzzle Game",
       title: "Pawn's Gambit",
       image: "/projects/project_02.png",
-      hoverBackground: "/backgrounds/background_02.png",
+      hoverBackground: "/backgrounds/background_05.png",
       description:
         "Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
       bullets: ["Enemy AI implementation", "Award-winning student project"],
@@ -199,7 +172,7 @@ export default function HomePage() {
     },
     {
       slug: "slashimi",
-      hasDetailPage : false,
+      hasDetailPage: false,
       label: "Game Project 4 — Topdown Adventure Game",
       title: "Slashimi",
       image: "/projects/project_04.png",
@@ -211,7 +184,7 @@ export default function HomePage() {
     },
     {
       slug: "tba",
-      hasDetailPage : false,
+      hasDetailPage: false,
       label: "Game Project 7",
       title: "TBA",
       image: "/projects/project_07.png",
@@ -223,10 +196,36 @@ export default function HomePage() {
     },
   ];
 
+export default function HomePage() {
+  const [activeBg, setActiveBg] = useState(0);
+  const [hoveredBackground, setHoveredBackground] = useState(null);
+
+  const backgrounds = useMemo(
+    () => [
+      "/backgrounds/background_01.png",
+      "/backgrounds/background_02.png",
+      "/backgrounds/background_03.png",
+      "/backgrounds/background_04.png",
+      "/backgrounds/background_05.png",
+      "/backgrounds/background_06.png",
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if (hoveredBackground) return;
+
+    const interval = setInterval(() => {
+      setActiveBg((prev) => (prev + 1) % backgrounds.length);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, [backgrounds.length, hoveredBackground]);
+
   const activeBackground = hoveredBackground || backgrounds[activeBg];
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#070709] text-zinc-200">
+    <div className="relative min-h-screen bg-[#070709] text-zinc-200">
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         {backgrounds.map((bg) => (
           <img
@@ -234,102 +233,63 @@ export default function HomePage() {
             src={bg}
             alt=""
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[2200ms] ${
-              activeBackground === bg ? "opacity-60" : "opacity-0"
+              activeBackground === bg ? "opacity-80" : "opacity-0"
             }`}
           />
         ))}
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 backdrop-blur-[7px]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(7,7,9,0.55),rgba(7,7,9,0.85))]" />
       </div>
 
-      <div
-        className={`relative z-10 mx-auto min-h-screen transition-all duration-300 ${
-          previewMode === "mobile" ? "max-w-[390px]" : "max-w-6xl"
-        }`}
-      >
-        <header className="border-b border-white/10">
-          <div className="flex items-center justify-between px-6 py-6">
-            <div>
-              <div className="text-[1.15rem] font-semibold tracking-tight text-white">Fredrik Furuskog</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-500">Game Programmer</div>
-            </div>
+      <div className="relative z-10 min-h-screen">
+        <Header />
 
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => setPreviewMode((p) => (p === "desktop" ? "mobile" : "desktop"))}
-                className="border border-white/10 px-3 py-1.5 text-xs transition hover:bg-white/10"
-              >
-                {previewMode === "desktop" ? "Mobile Preview" : "Desktop Preview"}
-              </button>
+        <div className="mx-auto max-w-6xl">
+          <RevealSection className="px-6 py-8 md:py-10" delay={100}>
+            <ProjectBlock
+              project={projects[0]}
+              onHoverStart={setHoveredBackground}
+              onHoverEnd={() => setHoveredBackground(null)}
+              featured
+            />
+          </RevealSection>
 
-              <nav className="flex gap-4 text-sm text-zinc-400">
-                <button
-                  onClick={() =>
-                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="transition hover:text-white"
-                >
+          <RevealSection
+            id="projects"
+            className="scroll-mt-24 px-6 py-8 md:py-10"
+            delay={180}
+          >
+            <div className="mb-8 flex items-end justify-between gap-6 border-b border-white/10 pb-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
                   Projects
-                </button>
-
-                <button
-                  onClick={() =>
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="transition hover:text-white"
-                >
-                  Contact
-                </button>
-              </nav>
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
+                  Group Projects
+                </h2>
+              </div>
+              <div className="hidden h-px flex-1 bg-white/10 md:block" />
             </div>
-          </div>
-        </header>
 
-        <RevealSection className="px-6 py-8 md:py-10" delay={100}>
-          <ProjectBlock
-            project={projects[0]}
-            previewMode={previewMode}
-            onHoverStart={setHoveredBackground}
-            onHoverEnd={() => setHoveredBackground(null)}
-            featured
-          />
-        </RevealSection>
-
-        <RevealSection id="projects" className="px-6 py-8 md:py-10" delay={180}>
-          <div className="mb-8 flex items-end justify-between gap-6 border-b border-white/10 pb-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Projects</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">Group Projects</h2>
+            <div className="space-y-12">
+              {projects.slice(1).map((project) => (
+                <ProjectBlock
+                  key={project.slug}
+                  project={project}
+                  onHoverStart={setHoveredBackground}
+                  onHoverEnd={() => setHoveredBackground(null)}
+                />
+              ))}
             </div>
-            <div className="hidden h-px flex-1 bg-white/10 md:block" />
-          </div>
+          </RevealSection>
 
-          <div className="space-y-12">
-            {projects.slice(1).map((project) => (
-              <ProjectBlock
-                key={project.title}
-                project={project}
-                previewMode={previewMode}
-                onHoverStart={setHoveredBackground}
-                onHoverEnd={() => setHoveredBackground(null)}
-              />
-            ))}
+          <div id="contact" className="mt-10 scroll-mt-24">
+            <Footer />
           </div>
-        </RevealSection>
-
-        <div id="contact" className="mt-10">
-          <Footer />
         </div>
 
-        {showTopButton && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-20 right-6 z-20 border border-white/10 bg-black/60 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/10"
-          >
-            ↑ Top
-          </button>
-        )}
+        <TopButton />
       </div>
     </div>
   );
