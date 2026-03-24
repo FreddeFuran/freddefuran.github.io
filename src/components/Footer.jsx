@@ -156,7 +156,7 @@ export default function Footer() {
           </a>
 
           <a
-            href="#"
+            href="#/cv"
             className="flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10"
           >
             <FileIcon />

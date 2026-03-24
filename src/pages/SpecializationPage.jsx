@@ -149,7 +149,7 @@ export default function SpecializationPage() {
             language="cpp"
           code={`struct MeshSharedData
 {
-    CU::Transform<float> mySharedTransform;
+    CU::Transform<float> mySharedStartingTransform;
     CU::Curve<CU::Vector3<float>> myVelocityOverLifetime;
 
     std::unordered_map<std::string, std::filesystem::path> myMaterialNameToPathList;
