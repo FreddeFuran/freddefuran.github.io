@@ -31,12 +31,19 @@ export default function SpecializationPage() {
         <section className="py-10 border-b border-white/10">
           <h2 className="text-2xl font-semibold text-white">Workflow Showcase</h2>
           <p className="mt-3 text-zinc-400">
-            Timelapse of creating a VFX in the editor and the final in-game result.
+            Timelapse of creating a VFX in the editor, implementing it into the runtime and the final in-game result.
           </p>
 
-          <div className="mt-6 aspect-video w-full bg-black/40 border border-white/10 flex items-center justify-center text-zinc-500">
-            {/* Replace with video */}
-            Video Placeholder
+          <div className="mt-6 aspect-video w-full border border-white/10 overflow-hidden bg-black">
+            <video
+              className="w-full h-full object-cover"
+              src="/specialization/WorkflowExample.webm"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
           </div>
         </section>
 
@@ -66,11 +73,26 @@ export default function SpecializationPage() {
           <p className="mt-4 text-zinc-300 leading-8">
             The original VFX workflow relied heavily on manually editing JSON files. This made iteration slow,
             difficult to reason about, and inaccessible for less technical users.
+            The old excruciating pipeline for even just trying to experiment with a VFX was essentially:
           </p>
+
+          <div className="grid md:grid-cols-1 gap-6 mt-6 text-zinc-300">
+            <ul className="space-y-3">
+              <li>• Write a json file for a VFX</li>
+              <li>• Ask a programmer to add a VFX component to desired actor type</li>
+              <li>• Ask a programmer to code logic for playing the specific VFX</li>
+              <li>• Pray that it looks good and even loads correctly on the first try</li>
+              <li>• Keep restarting the game, re-compiling shaders, tweaking small things until it looks good</li>
+            </ul>
+          </div>
+
           <p className="mt-4 text-zinc-300 leading-8">
-            A legacy editor existed, but it exposed large amounts of low-level data at once, forcing users to
-            navigate nested menus and abstract controls for even simple tasks.
+            As anyone can see, this pipeline was heavily flawed. Due to the pipeline entirely relying on a programmer for even previewing a VFX,
+            as well as composing these prefabs directly in JSON format, iteration time for a VFX could and did take up entire days.
+            Hence my goal was clear, reduce the iteration time and need for a programmer as much as possible.
           </p>
+
+
         </section>
 
         {/* WHAT I BUILT */}
@@ -88,12 +110,14 @@ export default function SpecializationPage() {
               <li>• Scene-based selection using pixel picking</li>
               <li>• Transform editing via ImGuizmo</li>
               <li>• Undo/redo command system</li>
+              <li>• Hotreloading shaders in conjunction with our material editor</li>
             </ul>
             <ul className="space-y-3">
               <li>• Clean, resizable UI layout</li>
               <li>• Reduced data clutter and improved readability</li>
               <li>• Immediate in-engine feedback</li>
               <li>• Runtime integration through VFXManager</li>
+              <li>• Customizable circle-buffer actor pools</li>
             </ul>
           </div>
         </section>
@@ -103,8 +127,8 @@ export default function SpecializationPage() {
           <h2 className="text-2xl font-semibold text-white">Designing for Usability</h2>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            A major focus of the project was to make the tool intuitive for the people actually creating VFX.
-            Instead of editing raw data, users interact directly with elements in the scene and adjust timing
+            A major focus of the project was to make the tool intuitive for our technical artists.
+            Instead of editing raw data, the user interacts directly with elements in the scene and adjusts timings
             visually through a timeline.
           </p>
 
@@ -121,47 +145,53 @@ export default function SpecializationPage() {
             I also made sure to implement quality of life features like undo/redo as well as hotkeys influenced by industry standard tools to meet user expectations.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-6">
-          {[
-            {
-              title: "Manual JSON",
-              desc: "Fully manual editing with very slow iteration and a high technical barrier.",
-              img: "/specialization/slice_3.png"
-            },
-            {
-              title: "Legacy Editor",
-              desc: "Functional but cluttered, exposing too much data and making simple tasks harder.",
-              img: "/specialization/slice_2.png"
-            },
-            {
-              title: "Final Tool",
-              desc: "Visual timeline, direct scene interaction, and significantly faster iteration.",
-              img: "/specialization/slice_1.png"
-            }
-          ].map((item, i) => (
-            <button
-              key={i}
-              onClick={() => setSelectedImage(item.img)}
-              className="group text-left flex flex-col h-full"
-            >
-              {/* IMAGE */}
-              <div className="overflow-hidden border border-white/10 bg-black/30">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-auto transition duration-300 group-hover:scale-[1.02]"
-                />
-              </div>
-
-              {/* TEXT */}
-              <div className="mt-3 flex-1 flex flex-col justify-end">
-                <h3 className="text-white font-medium">{item.title}</h3>
-                <p className="mt-1 text-sm text-zinc-400">{item.desc}</p>
-              </div>
-            </button>
-          ))}
-        </div>
+          
         </section>
+
+        <section className="py-10 border-b border-white/10">
+          <h2 className="text-2xl font-semibold text-white">Workflow iterations</h2>
+          <div className="grid md:grid-cols-3 gap-6 mt-6">
+            {[
+              {
+                title: "Original workflow",
+                desc: "Fully manual editing with very slow iteration and a high technical barrier.",
+                img: "/specialization/slice_3.png"
+              },
+              {
+                title: "First iteration - Make it work",
+                desc: "Functional but cluttered, exposing too much data and making simple tasks harder.",
+                img: "/specialization/slice_2.png"
+              },
+              {
+                title: "Final iteration - Make it good",
+                desc: "Visual timeline, direct scene interaction, and significantly faster iteration.",
+                img: "/specialization/slice_1.png"
+              }
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => setSelectedImage(item.img)}
+                className="group text-left flex flex-col h-full"
+              >
+                {/* IMAGE */}
+                <div className="overflow-hidden border border-white/10 bg-black/30">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-auto transition duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+
+                {/* TEXT */}
+                <div className="mt-3 flex-1 flex flex-col justify-end">
+                  <h3 className="text-white font-medium">{item.title}</h3>
+                  <p className="mt-1 text-sm text-zinc-400">{item.desc}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+
 
         {/* PROGRAMMER SIDE */}
 <section className="py-10 border-b border-white/10">
@@ -169,16 +199,47 @@ export default function SpecializationPage() {
 
   <p className="mt-4 text-zinc-300 leading-8">
     The tool was not only built for authoring, but also for practical runtime use. Through a centralized
-    VFX manager, programmers can spawn effects directly from code using a transform, optionally apply
-    velocity, constrain the effect to a moving object, manually stop or reset a VFX, and register callbacks
+    VFX manager, programmers can spawn effects directly from code only having to provide a VFX name and a transform, optionally applying
+    velocity or constraining the effect to a moving object, and register callbacks
     for different cutoff points when playback finishes.
   </p>
 
   <p className="mt-4 text-zinc-300 leading-8">
-    One of my goals was to keep the runtime side straightforward while hiding as much unnecessary complexity
-    as possible. The same system that powers the editor is also usable from gameplay code, which makes the
-    tool feel less like an isolated editor feature and more like a practical part of the engine's VFX pipeline.
+    One of my main goals when producing systems for my fellow programmers is always making sure that the system is easy to understand and hard to do things wrong.
+    This effectively means producing interfaces that only expose what is actually interesting, below you can see an example of the exposed interface and example usage. 
   </p>
+
+  <div className="mt-6">
+      <CodeSnippet
+        title="Public VFX Manager interface"
+        language="cpp"
+        code={`void Init();
+void ResetAllVFX();
+RN::VFXActor* PlayVFX(
+  const std::string& aVFXName, 
+  const CommonUtilities::Matrix4x4<float>& aTransform, 
+  const CommonUtilities::Vector3<float>& aVelocity = { 0,0,0 }, 
+  bool aShouldConstrain = false);
+
+const std::vector<RN::VFXActor*>& GetAllActiveVFX() const;`}
+      />
+  </div>
+
+<div className="mt-6">
+      <CodeSnippet
+        title="Public VFX interface"
+        language="cpp"
+        code={`void ActivateVFX(
+  const CommonUtilities::Matrix4x4<float>& aWorldMatrix, 
+  const CommonUtilities::Vector3f& aVelocity = {0,0,0}, 
+  bool aShouldConstrain = false);
+
+void SetOnFinishCallback(RN::OnFinishCallbackFn&& aCallback, RN::CutoffPoint aCutoffPoint);
+
+void Stop();
+void Reset();`}
+      />
+  </div>
 
   <div className="mt-6">
     <CodeSnippet
@@ -253,7 +314,7 @@ struct MeshEntry
           <h2 className="text-2xl font-semibold text-white">Results</h2>
 
           <ul className="mt-4 space-y-3 text-zinc-300">
-            <li>• Faster iteration time</li>
+            <li>• Drastically reduced iteration time</li>
             <li>• Reduced technical barrier for content creation</li>
             <li>• More intuitive workflow for new users</li>
             <li>• Stronger connection between editing and runtime behavior</li>
@@ -266,12 +327,12 @@ struct MeshEntry
 
           <p className="mt-4 text-zinc-300 leading-8">
             This project was a great opportunity to work closely with artists and designers to build a tool that directly impacted their workflow and the final quality of the content they were able to create.
-            It was also a chance to dive deep into engine programming and get a better understanding of how to design systems that are both powerful and user-friendly.
+            It was also a chance to dive deep into systems and tools to get a better understanding of how to design systems that are both powerful and user-friendly.
                       </p>
 
           <p className="mt-4 text-zinc-300 leading-8">
             From my initial planning i achieved every major goal I set out for the project, and I was able to deliver a tool that was well-received by the artists and has become an integral part of our VFX pipeline.
-            The only goal I wasn't able to fully achieve was implementing support for scriptable behaviours which i had to cut due to our scripting system being deprioritized during development, but I still designed the system with that feature in mind so it could be added in the future without major refactoring.
+            The only goal I wasn't able to achieve was implementing support for scriptable behaviours which i had to cut due to our scripting system being deprioritized during development, but I still designed the system with that feature in mind so it could be added in the future without major refactoring.
           </p>
           <div className="mt-6">
           <h3 className="text-2xl font-semibold text-white">Future Improvements</h3>
