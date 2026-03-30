@@ -23,7 +23,7 @@ export default function SpecializationPage() {
           </h1>
           <p className="mt-4 max-w-3xl leading-8 text-zinc-300">
             A workflow-focused in-engine tool built to replace manual VFX authoring with a faster,
-            more intuitive compositing pipeline for meshes, materials, and particle systems.
+            more intuitive pipeline for composing meshes, materials, and particle systems.
           </p>
         </section>
 
@@ -71,9 +71,8 @@ export default function SpecializationPage() {
         <section className="py-10 border-b border-white/10">
           <h2 className="text-2xl font-semibold text-white">The Problem</h2>
           <p className="mt-4 text-zinc-300 leading-8">
-            The original VFX workflow relied heavily on manually editing JSON files. This made iteration slow,
-            difficult to reason about, and inaccessible for less technical users.
-            The old excruciating pipeline for even just trying to experiment with a VFX was essentially:
+            The original VFX workflow relied heavily on manually editing JSON files, making iteration slow,
+            difficult to preview, and inaccessible for less technical users. The pipeline for even testing a VFX looked like this:
           </p>
 
           <div className="grid md:grid-cols-1 gap-6 mt-6 text-zinc-300">
@@ -87,12 +86,9 @@ export default function SpecializationPage() {
           </div>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            As anyone can see, this pipeline was heavily flawed. Due to the pipeline entirely relying on a programmer for even previewing a VFX,
-            as well as composing these prefabs directly in JSON format, iteration time for a VFX could and did take up entire days.
-            Hence my goal was clear, reduce the iteration time and need for a programmer as much as possible.
+            This made experimentation expensive and pushed even simple iteration onto programmers.
+            My goal was to reduce that dependency and make VFX authoring faster, clearer, and more self-sufficient.
           </p>
-
-
         </section>
 
         {/* WHAT I BUILT */}
@@ -100,8 +96,8 @@ export default function SpecializationPage() {
           <h2 className="text-2xl font-semibold text-white">What I Built</h2>
           
           <p className="mt-4 text-zinc-300 leading-8">
-            The project focused on improving the full authoring loop, from selecting and arranging VFX elements
-            in the scene to previewing timing, managing playback, and integrating the finished effect into runtime code.
+            I focused on improving the full authoring loop, from composing VFX elements in-scene to previewing timing,
+            controlling playback, and integrating finished effects into runtime code.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mt-6 text-zinc-300">
@@ -127,25 +123,17 @@ export default function SpecializationPage() {
           <h2 className="text-2xl font-semibold text-white">Designing for Usability</h2>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            A major focus of the project was to make the tool intuitive for our technical artists.
-            Instead of editing raw data, the user interacts directly with elements in the scene and adjusts timings
-            visually through a timeline.
+            A major focus of the project was making the tool intuitive for technical artists.
+            Instead of editing raw data, users interact directly with VFX elements in the scene and adjust timing visually through a timeline.
           </p>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            The final version of the tool was built directly with our technical art team in mind, ensuring it met their needs and workflow requirements.
-            This meant prioritizing features that improved iteration speed and ease of use for those tasks that were previously cumbersome.
-            In the end the final product was produced through a close feedback loop with the artists, 
-            which was crucial for making sure the tool actually solved their problems and fit into their existing processes.
+            The final version was shaped through close feedback with our technical art team, helping the tool fit their actual workflow rather than just exposing engine data through a UI.
           </p>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            To make sure that the tool would actually be adopted and used, I also made sure to keep the UI clean and focused, 
-            hiding any unnecessary complexity and exposing only the controls that were relevant for the task at hand.
-            I also made sure to implement quality of life features like undo/redo as well as hotkeys influenced by industry standard tools to meet user expectations.
+            To support adoption, I kept the interface clean and task-focused while adding quality-of-life features like undo/redo and familiar hotkeys inspired by industry-standard tools.
           </p>
-
-          
         </section>
 
         <section className="py-10 border-b border-white/10">
@@ -192,21 +180,18 @@ export default function SpecializationPage() {
           </div>
         </section>
 
-
         {/* PROGRAMMER SIDE */}
 <section className="py-10 border-b border-white/10">
   <h2 className="text-2xl font-semibold text-white">Runtime Integration</h2>
 
   <p className="mt-4 text-zinc-300 leading-8">
-    The tool was not only built for authoring, but also for practical runtime use. Through a centralized
-    VFX manager, programmers can spawn effects directly from code only having to provide a VFX name and a transform, optionally applying
-    velocity or constraining the effect to a moving object, and register callbacks
-    for different cutoff points when playback finishes.
+    The tool was built not just for authoring, but for practical runtime use. Through a centralized
+    VFX manager, programmers can spawn effects from code using a VFX name and transform, with optional velocity,
+    object constraints, and finish callbacks.
   </p>
 
   <p className="mt-4 text-zinc-300 leading-8">
-    One of my main goals when producing systems for my fellow programmers is always making sure that the system is easy to understand and hard to do things wrong.
-    This effectively means producing interfaces that only expose what is actually interesting, below you can see an example of the exposed interface and example usage. 
+    A key goal was keeping the runtime interface simple and hard to misuse, exposing only the parts that programmers actually need.
   </p>
 
   <div className="mt-6">
@@ -258,10 +243,8 @@ if (RN::VFXManager* manager = RN::Services::Get<RN::VFXManager>())
   </div>
 
   <p className="mt-6 text-zinc-300 leading-8">
-    Internally, I also structured the data to avoid duplicating constant information for every entry.
-    Shared resources such as mesh references, materials, and other static configuration are separated from
-    per-instance state like transform, lifetime, and active state. This makes the layout easier to reason
-    about and more memory-efficient when multiple VFX parts rely on the same underlying data.
+    Internally, I separated shared resources like meshes and materials from per-instance state such as transform,
+    lifetime, and active state. This reduced duplicated data and made the system easier to reason about in both the editor and runtime.
   </p>
 
   <div className="mt-6">
@@ -302,10 +285,8 @@ struct MeshEntry
           <h2 className="text-2xl font-semibold text-white">Technical Challenges</h2>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            Implementing pixel picking required setting up GPU-to-CPU readback using staging textures,
-            allowing accurate selection of VFX elements directly from the rendered scene.
-            Other than pixel picking and transform editing, most of the challenges were related to designing a clean data structure that could be easily edited in the tool while also being efficient and straightforward to use from code.
-            Otherwise the biggest challenge was actually just creating a tool that was easy to use, which required a lot of iteration and feedback from the artists to get right.
+            Pixel picking required GPU-to-CPU readback through staging textures, enabling accurate selection directly in the rendered scene.
+            Beyond that, the main challenge was designing data structures that were both editor-friendly and efficient at runtime, while keeping the tool easy to use through repeated iteration with artists.
           </p>
         </section>
 
@@ -326,13 +307,12 @@ struct MeshEntry
           <h2 className="text-2xl font-semibold text-white">Final thoughts</h2>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            This project was a great opportunity to work closely with artists and designers to build a tool that directly impacted their workflow and the final quality of the content they were able to create.
-            It was also a chance to dive deep into systems and tools to get a better understanding of how to design systems that are both powerful and user-friendly.
-                      </p>
+            This project gave me the chance to work closely with artists and designers on a tool that directly improved both their workflow and the quality of the final content.
+          </p>
 
           <p className="mt-4 text-zinc-300 leading-8">
-            From my initial planning i achieved every major goal I set out for the project, and I was able to deliver a tool that was well-received by the artists and has become an integral part of our VFX pipeline.
-            The only goal I wasn't able to achieve was implementing support for scriptable behaviours which i had to cut due to our scripting system being deprioritized during development, but I still designed the system with that feature in mind so it could be added in the future without major refactoring.
+            I achieved the project’s main goals and delivered a tool that became an important part of our VFX pipeline.
+            The one feature I had to cut was support for scriptable behaviours, due to our scripting system being deprioritized, but I still designed the system so that feature could be added later without major refactoring.
           </p>
           <div className="mt-6">
           <h3 className="text-2xl font-semibold text-white">Future Improvements</h3>
