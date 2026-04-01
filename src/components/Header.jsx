@@ -61,6 +61,15 @@ export default function Header() {
     scrollToId("contact");
   };
 
+  const handleHomeClick = () => {
+  if (isHomePage) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuOpen(false);
+  } else {
+    navigate("/");
+  }
+};
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070709]/85 backdrop-blur">
       <div
@@ -90,11 +99,12 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm text-zinc-400 md:flex">
-            {!isHomePage && (
-              <Link to="/" className="transition hover:text-white">
-                Home
-              </Link>
-            )}
+            <button
+              onClick={handleHomeClick}
+              className="transition hover:text-white"
+            >
+              Home
+            </button>
 
             <button
               onClick={handleProjectsClick}
@@ -144,15 +154,12 @@ export default function Header() {
           }`}
         >
           <nav className="flex flex-col gap-2 border-t border-white/10 pt-4 text-base text-zinc-200">
-            {!isHomePage && (
-              <Link
-                to="/"
-                onClick={() => setMenuOpen(false)}
-                className="rounded-md px-3 py-3 transition hover:bg-white/5 hover:text-white"
-              >
-                Home
-              </Link>
-            )}
+            <button
+              onClick={handleHomeClick}
+              className="rounded-md px-3 py-3 text-left transition hover:bg-white/5 hover:text-white"
+            >
+              Home
+            </button>
 
             <button
               onClick={handleProjectsClick}

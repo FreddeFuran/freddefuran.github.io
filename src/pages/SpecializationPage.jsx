@@ -320,6 +320,7 @@ struct MeshEntry
             <li>• Visual scripting integration</li>
             <li>• Advanced movement behaviors (orbiting, tethering)</li>
             <li>• Collision-based VFX interaction</li>
+            <li>• Customizable Event-based triggers to make the pipeline even more self-sufficient</li>
           </ul>
           </div>
         </section>
@@ -328,7 +329,7 @@ struct MeshEntry
 
       <TopButton />
 
-      <div className="mt-10">
+      <div id="contact" className="mt-10 scroll-mt-24">
         <Footer />
       </div>
 
