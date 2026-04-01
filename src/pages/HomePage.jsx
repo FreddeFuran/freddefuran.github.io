@@ -35,12 +35,29 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
     >
       <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-start">
         <div className={featured ? "order-2" : "order-1"}>
-          <div className="overflow-hidden border border-white/10 bg-white/[0.03]">
+          <div className="relative overflow-hidden border border-white/10 bg-white/[0.03]">
+            
+            {/* MAIN IMAGE */}
             <img
               src={project.image}
               alt={project.title}
               className="w-full aspect-video object-cover transition duration-500 ease-out group-hover:scale-[1.035]"
             />
+
+            {/* TROPHIES OVERLAY */}
+            {project.trophies?.length > 0 && (
+              <div className="pointer-events-none absolute right-3 top-3 flex flex-col items-end gap-3">
+                {project.trophies.map((img) => (
+                  <img
+                    key={img}
+                    src={img}
+                    alt="Award"
+                    className="h-20 w-auto object-contain opacity-85 transition duration-300 group-hover:opacity-100"
+                  />
+                ))}
+              </div>
+            )}
+
           </div>
         </div>
 
@@ -88,6 +105,18 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
             </div>
           )}
 
+          {project.playLink?.length > 0 && (
+            <div className="mt-7 flex items-center gap-4">
+            <Link
+            to={project.playLink}
+                className="border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-100 transition hover:bg-white/10"
+            > 
+            Play Here 
+            </Link>
+            </div>
+          )
+          }
+
           {project.hasDetailPage && (
             <div className="mt-7 flex items-center gap-4">
               <Link
@@ -111,7 +140,7 @@ const projects = [
       label: "Specialization",
       title: "VFX Compositing Tool and System",
       image: "/projects/project_specialization.png",
-      hoverBackground: "/backgrounds/background_01.png",
+      hoverBackground: "/backgrounds/background_10.png",
       description:
         "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime, with a centralized VFX Manager.",
       bullets: [
@@ -119,7 +148,7 @@ const projects = [
         "Playback preview and timing control",
         "Built to speed up iteration for effects work",
       ],
-      contributions: ["ImGui", "Tools Programming", "VFX Pipeline"],
+      contributions: ["ImGui", "Tools Programming", "VFX Pipeline", "Workflow Optimization"],
     },
     {
       slug: "aliens-stole-my-ship",
@@ -139,6 +168,7 @@ const projects = [
         "PhysX Integration",
         "VFX Pipeline",
         "Graphics Programming",
+        "Optimization"
       ],
     },
     {
@@ -158,6 +188,31 @@ const projects = [
       contributions: ["Backend", "Graphics Programming", "Optimization"],
     },
     {
+      slug: "slashimi",
+      hasDetailPage: false,
+      label: "Game Project 4 — Topdown Adventure Game",
+      title: "Slashimi",
+      image: "/projects/project_04.png",
+      hoverBackground: "/backgrounds/background_09.png",
+      description:
+        "Implemented all enemy AI and second focus on combat and player movement.",
+      bullets: ["NPC behavior systems", "A-star pathfinding", "Combat"],
+      contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
+    },
+    {
+      slug: "grimfateawaits",
+      hasDetailPage: false,
+      label: "Game Project 3 — 2D Sidescroller",
+      title: "Grim Fate Awaits",
+      image: "/backgrounds/background_08.png",
+      hoverBackground: "/backgrounds/background_08.png",
+      description:
+        "Worked mainly on backend architecture aswell as the particle system/editor, also partook in gameplay programming and the animation system.",
+      bullets: ["Backend", "Gameplay", "Particle System"],
+      playLink : "https://brandonmach.itch.io/grim-fate-awaits",
+      contributions: ["Backend Architecture", "Collision", "Combat", "Movement", "Level Serializing", "Particle System", "Checkpoints", "Gameplay Systems", "Optimization"],
+    },
+    {
       slug: "pawns-gambit",
       hasDetailPage: false,
       label: "Game Project 2 — Mobile Puzzle Game",
@@ -165,21 +220,28 @@ const projects = [
       image: "/projects/project_02.png",
       hoverBackground: "/backgrounds/background_05.png",
       description:
-        "Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
+        "Mainly worked on Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
       bullets: ["Enemy AI implementation", "Award-winning student project"],
-      contributions: ["Enemy AI", "Gameplay Systems"],
+      playLink: "https://snackapawn.itch.io/pawns-gambit",
+      contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
+      trophies: [
+        "/awards/rookies_runnerup.png",
+        "/awards/rookies_peopleschoice.png",
+        "/awards/rookies_nominee.png"
+      ]
     },
     {
-      slug: "slashimi",
+      slug: "pig-game",
       hasDetailPage: false,
-      label: "Game Project 4 — Topdown Adventure Game",
-      title: "Slashimi",
-      image: "/projects/project_04.png",
-      hoverBackground: "/backgrounds/background_03.png",
+      label: "Game Project 1 — Endless Runner",
+      title: "When Pigs Fly",
+      image: "/backgrounds/background_07.png",
+      hoverBackground: "/backgrounds/background_07.png",
       description:
-        "Worked mainly on NPC AI systems, focusing on behavior logic and gameplay systems.",
-      bullets: ["NPC behavior systems", "A-star pathfinding", "Gameplay logic"],
-      contributions: ["Enemy AI", "Gameplay Systems"],
+        "Mainly worked on player movement, checkpoint system and tutorial but also partook in lighting, setdressing, UI and optimization.",
+      bullets: ["Player Movement", "Checkpoint System", "Tutorial"],
+      playLink: "https://brandonmach.itch.io/when-pigs-fly",
+      contributions: ["Gameplay", "Tutorial", "UI", "Optimization"],
     },
     {
       slug: "tba",
@@ -207,6 +269,10 @@ export default function HomePage() {
       "/backgrounds/background_04.png",
       "/backgrounds/background_05.png",
       "/backgrounds/background_06.png",
+      "/backgrounds/background_07.png",
+      "/backgrounds/background_08.png",
+      "/backgrounds/background_09.png",
+      "/backgrounds/background_10.png",
     ],
     []
   );
