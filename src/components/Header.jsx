@@ -70,6 +70,15 @@ export default function Header() {
   }
 };
 
+  const handleCVClick = () => {
+  if (location.pathname === "/cv") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuOpen(false);
+  } else {
+    navigate("/cv");
+  }
+};
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070709]/85 backdrop-blur">
       <div
@@ -118,6 +127,13 @@ export default function Header() {
               className="transition hover:text-white"
             >
               Contact
+            </button>
+
+            <button
+              onClick={handleCVClick}
+              className="rounded-md border border-white/10 px-3 py-1.5 text-white transition hover:bg-white/10"
+            >
+              CV
             </button>
           </nav>
 
@@ -173,6 +189,13 @@ export default function Header() {
               className="rounded-md px-3 py-3 text-left transition hover:bg-white/5 hover:text-white"
             >
               Contact
+            </button>
+
+            <button
+              onClick={handleCVClick}
+              className="rounded-md px-3 py-3 text-left transition hover:bg-white/5 hover:text-white"
+            >
+              CV
             </button>
           </nav>
         </div>
