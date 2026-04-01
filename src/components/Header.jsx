@@ -36,12 +36,26 @@ export default function Header() {
   };
 
   const handleProjectsClick = () => {
-    if (isHomePage) {
-      scrollToId("projects");
-    } else {
-      navigate("/projects");
+  if (isHomePage) {
+    scrollToId("projects");
+  } else {
+    navigate("/", { state: { scrollTo: "projects" } });
+  }
+};
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const id = location.state.scrollTo;
+
+      // small delay ensures DOM is ready
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 0);
     }
-  };
+  }, [location]);
 
   const handleContactClick = () => {
     scrollToId("contact");

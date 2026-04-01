@@ -19,7 +19,7 @@ export default function SpecializationPage() {
             Specialization
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            In-Engine VFX Compositing Tool
+            VFX Compositing Tool and System
           </h1>
           <p className="mt-4 max-w-3xl leading-8 text-zinc-300">
             A workflow-focused in-engine tool built to replace manual VFX authoring with a faster,
@@ -80,7 +80,7 @@ export default function SpecializationPage() {
               <li>• Write a json file for a VFX</li>
               <li>• Ask a programmer to add a VFX component to desired actor type</li>
               <li>• Ask a programmer to code logic for playing the specific VFX</li>
-              <li>• Pray that it looks good and even loads correctly on the first try</li>
+              <li>• Pray that everything looks good and even loads correctly on the first try</li>
               <li>• Keep restarting the game, re-compiling shaders, tweaking small things until it looks good</li>
             </ul>
           </div>

@@ -109,18 +109,17 @@ const projects = [
       slug: "specialization",
       hasDetailPage: true,
       label: "Specialization",
-      title: "In-Engine VFX Editor",
+      title: "VFX Compositing Tool and System",
       image: "/projects/project_specialization.png",
       hoverBackground: "/backgrounds/background_01.png",
       description:
-        "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime.",
+        "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime, with a centralized VFX Manager.",
       bullets: [
         "Direct in-engine editing workflow",
         "Playback preview and timing control",
         "Built to speed up iteration for effects work",
       ],
-      contributions: ["ImGui", "Editor Tooling", "VFX Workflow"],
-      meta: "Featured",
+      contributions: ["ImGui", "Tools Programming", "VFX Pipeline"],
     },
     {
       slug: "aliens-stole-my-ship",
