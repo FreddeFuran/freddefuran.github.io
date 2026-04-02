@@ -43,8 +43,8 @@ export default function SpitePage() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Type</p>
-          <p className="mt-2 text-zinc-200">Detailed Project Page</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Scope</p>
+          <p className="mt-2 text-zinc-200">10 weeks (half-time)</p>
         </div>
       </section>
 
@@ -68,7 +68,7 @@ export default function SpitePage() {
             <li>• Octree-based frustum culling</li>
             <li>• Grid-optimized navmesh traversal</li>
             <li>• Raycasting improvements</li>
-            <li>• Graphics-related programming work</li>
+            <li>• Graphics programming</li>
           </ul>
         </div>
       </section>

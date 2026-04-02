@@ -42,8 +42,8 @@ export default function AliensPage() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Type</p>
-          <p className="mt-2 text-zinc-200">Detailed Project Page</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Scope</p>
+          <p className="mt-2 text-zinc-200">15 weeks (half-time)</p>
         </div>
       </section>
 

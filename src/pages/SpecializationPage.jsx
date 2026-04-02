@@ -57,8 +57,8 @@ export default function SpecializationPage() {
             <p className="mt-2">C++, Direct3D11, ImGui, ImGuizmo</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Context</p>
-            <p className="mt-2">Specialization Project</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Scope</p>
+            <p className="mt-2">4 weeks half-time, 3 weeks full-time</p>
           </div>
         </section>
 
