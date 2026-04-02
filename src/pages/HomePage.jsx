@@ -1,8 +1,9 @@
 import { Link } from "react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TopButton from "../components/TopButton";
+import BackgroundSlideshow from "../components/BackgroundSlideshow";
 
 function RevealSection({ children, className = "", delay = 0, ...props }) {
   const [visible, setVisible] = useState(false);
@@ -36,15 +37,12 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
       <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-start">
         <div className={featured ? "order-2" : "order-1"}>
           <div className="relative overflow-hidden border border-white/10 bg-white/[0.03]">
-            
-            {/* MAIN IMAGE */}
             <img
               src={project.image}
               alt={project.title}
               className="w-full aspect-video object-cover transition duration-500 ease-out group-hover:scale-[1.035]"
             />
 
-            {/* TROPHIES OVERLAY */}
             {project.trophies?.length > 0 && (
               <div className="pointer-events-none absolute right-3 top-3 flex flex-col items-end gap-3">
                 {project.trophies.map((img) => (
@@ -57,7 +55,6 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
                 ))}
               </div>
             )}
-
           </div>
         </div>
 
@@ -75,6 +72,7 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
                 {project.title}
               </h3>
             </div>
+
             {project.meta && (
               <span className="text-xs text-zinc-500">{project.meta}</span>
             )}
@@ -107,15 +105,14 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
 
           {project.playLink?.length > 0 && (
             <div className="mt-7 flex items-center gap-4">
-            <Link
-            to={project.playLink}
+              <Link
+                to={project.playLink}
                 className="border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-100 transition hover:bg-white/10"
-            > 
-            Play Here 
-            </Link>
+              >
+                Play Here
+              </Link>
             </div>
-          )
-          }
+          )}
 
           {project.hasDetailPage && (
             <div className="mt-7 flex items-center gap-4">
@@ -134,228 +131,207 @@ function ProjectBlock({ project, onHoverStart, onHoverEnd, featured = false }) {
 }
 
 const projects = [
-    {
-      slug: "specialization",
-      hasDetailPage: true,
-      label: "Specialization",
-      title: "VFX Compositing Tool and System",
-      image: "/projects/project_specialization.png",
-      hoverBackground: "/backgrounds/background_10.png",
-      description:
-        "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime, with a centralized VFX Manager.",
-      bullets: [
-        "Direct in-engine editing workflow",
-        "Playback preview and timing control",
-        "Built to speed up iteration for effects work",
-      ],
-      contributions: ["ImGui", "Tools Programming", "VFX Pipeline", "Workflow Optimization"],
-    },
-    {
-      slug: "aliens-stole-my-ship",
-      hasDetailPage: true,
-      label: "Game Project 6 — 3PP Exploration Adventure Game",
-      title: "Aliens Stole My Sh?*!",
-      image: "/projects/project_06.png",
-      hoverBackground: "/backgrounds/background_06.png",
-      description:
-        "Implemented and wrapped PhysX, built out the VFX pipeline, and worked on implementation of Compute Shaders and various graphics features.",
-      bullets: [
-        "PhysX integration",
-        "VFX pipeline development",
-        "General graphics programming",
-      ],
-      contributions: [
-        "PhysX Integration",
-        "VFX Pipeline",
-        "Graphics Programming",
-        "Optimization"
-      ],
-    },
-    {
-      slug: "spite-blood-and-gold",
-      hasDetailPage: true,
-      label: "Game Project 5 — Topdown Hack-and-Slash Game",
-      title: "Spite: Blood and Gold",
-      image: "/projects/project_05.png",
-      hoverBackground: "/backgrounds/background_02.png",
-      description:
-        "Backend and graphics programming with a strong focus on optimization and runtime performance.",
-      bullets: [
-        "Threaded scene loading",
-        "Octree-based frustum culling",
-        "Grid-optimized navmesh traversal and raycasting",
-      ],
-      contributions: ["Backend", "Graphics Programming", "Optimization"],
-    },
-    {
-      slug: "slashimi",
-      hasDetailPage: false,
-      label: "Game Project 4 — Topdown Adventure Game",
-      title: "Slashimi",
-      image: "/projects/project_04.png",
-      hoverBackground: "/backgrounds/background_09.png",
-      description:
-        "Implemented all enemy AI and second focus on combat and player movement.",
-      bullets: ["NPC behavior systems", "A-star pathfinding", "Combat"],
-      contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
-    },
-    {
-      slug: "grimfateawaits",
-      hasDetailPage: false,
-      label: "Game Project 3 — 2D Sidescroller",
-      title: "Grim Fate Awaits",
-      image: "/backgrounds/background_08.png",
-      hoverBackground: "/backgrounds/background_08.png",
-      description:
-        "Worked mainly on backend architecture aswell as the particle system/editor, also partook in gameplay programming and the animation system.",
-      bullets: ["Backend", "Gameplay", "Particle System"],
-      playLink : "https://brandonmach.itch.io/grim-fate-awaits",
-      contributions: ["Backend Architecture", "Collision", "Combat", "Movement", "Level Serializing", "Particle System", "Checkpoints", "Gameplay Systems", "Optimization"],
-    },
-    {
-      slug: "pawns-gambit",
-      hasDetailPage: false,
-      label: "Game Project 2 — Mobile Puzzle Game",
-      title: "Pawn's Gambit",
-      image: "/projects/project_02.png",
-      hoverBackground: "/backgrounds/background_05.png",
-      description:
-        "Mainly worked on Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
-      bullets: ["Enemy AI implementation", "Award-winning student project"],
-      playLink: "https://snackapawn.itch.io/pawns-gambit",
-      contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
-      trophies: [
-        "/awards/rookies_runnerup.png",
-        "/awards/rookies_peopleschoice.png",
-        "/awards/rookies_nominee.png"
-      ]
-    },
-    {
-      slug: "pig-game",
-      hasDetailPage: false,
-      label: "Game Project 1 — Endless Runner",
-      title: "When Pigs Fly",
-      image: "/backgrounds/background_07.png",
-      hoverBackground: "/backgrounds/background_07.png",
-      description:
-        "Mainly worked on player movement, checkpoint system and tutorial but also partook in lighting, setdressing, UI and optimization.",
-      bullets: ["Player Movement", "Checkpoint System", "Tutorial"],
-      playLink: "https://brandonmach.itch.io/when-pigs-fly",
-      contributions: ["Gameplay", "Tutorial", "UI", "Optimization"],
-    },
-    {
-      slug: "tba",
-      hasDetailPage: false,
-      label: "Game Project 7",
-      title: "TBA",
-      image: "/projects/project_07.png",
-      hoverBackground: "/backgrounds/background_02.png",
-      description:
-        "Upcoming project. Detailed information will be added once the project has been finished.",
-      bullets: [],
-      contributions: [],
-    },
-  ];
+  {
+    slug: "specialization",
+    hasDetailPage: true,
+    label: "Specialization",
+    title: "VFX Compositing Tool and System",
+    image: "/projects/project_specialization.png",
+    hoverBackground: "/backgrounds/background_10.png",
+    description:
+      "A ImGui-based in-engine VFX editor built for creating and previewing VFX in runtime, with a centralized VFX Manager.",
+    bullets: [
+      "Direct in-engine editing workflow",
+      "Playback preview and timing control",
+      "Built to speed up iteration for effects work",
+    ],
+    contributions: ["ImGui", "Tools Programming", "VFX Pipeline", "Workflow Optimization"],
+  },
+  {
+    slug: "aliens-stole-my-ship",
+    hasDetailPage: true,
+    label: "Game Project 6 — 3PP Exploration Adventure Game",
+    title: "Aliens Stole My Sh?*!",
+    image: "/projects/project_06.png",
+    hoverBackground: "/backgrounds/background_06.png",
+    description:
+      "Implemented and wrapped PhysX, built out the VFX pipeline, and worked on implementation of Compute Shaders and various graphics features.",
+    bullets: [
+      "PhysX integration",
+      "VFX pipeline development",
+      "General graphics programming",
+    ],
+    contributions: [
+      "PhysX Integration",
+      "VFX Pipeline",
+      "Graphics Programming",
+      "Material Editor",
+      "Shader Editor",
+      "Hotreloading Support",
+      "Optimization",
+    ],
+  },
+  {
+    slug: "spite-blood-and-gold",
+    hasDetailPage: true,
+    label: "Game Project 5 — Topdown Hack-and-Slash Game",
+    title: "Spite: Blood and Gold",
+    image: "/projects/project_05.png",
+    hoverBackground: "/backgrounds/background_02.png",
+    description:
+      "Backend and graphics programming with a strong focus on optimization and runtime performance. Implemented and wrapped FFmpeg-7.0",
+    bullets: [
+      "Threaded scene loading",
+      "Octree-based frustum culling",
+      "Instanced Rendering",
+      "Grid-optimized navmesh traversal and raycasting",
+    ],
+    contributions: [
+      "Backend",
+      "Graphics Programming",
+      "Gameplay Utilities",
+      "Debug Utilities",
+      "Videoplayer",
+      "Text Rendering",
+      "Silhouette Shader",
+      "Texture-binding through Rive",
+      "Heatmap visualization for AI",
+      "Optimization",
+    ],
+  },
+  {
+    slug: "slashimi",
+    hasDetailPage: false,
+    label: "Game Project 4 — Topdown Adventure Game",
+    title: "Slashimi",
+    image: "/projects/project_04.png",
+    hoverBackground: "/backgrounds/background_09.png",
+    description:
+      "Implemented all enemy AI and second focus on combat and player movement.",
+    bullets: ["NPC behavior systems", "A-star pathfinding", "Combat"],
+    contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
+  },
+  {
+    slug: "grimfateawaits",
+    hasDetailPage: false,
+    label: "Game Project 3 — 2D Sidescroller",
+    title: "Grim Fate Awaits",
+    image: "/backgrounds/background_08.png",
+    hoverBackground: "/backgrounds/background_08.png",
+    description:
+      "Worked mainly on backend architecture aswell as the particle system/editor, also partook in gameplay programming and the animation system.",
+    bullets: ["Backend", "Gameplay", "Particle System"],
+    playLink: "https://brandonmach.itch.io/grim-fate-awaits",
+    contributions: [
+      "Backend Architecture",
+      "Object Factory",
+      "Collision Manager",
+      "Early Iteration Combat",
+      "Movement",
+      "Level De/serializing",
+      "Particle System",
+      "Checkpoints",
+      "Gameplay Features",
+      "Optimization",
+    ],
+  },
+  {
+    slug: "pawns-gambit",
+    hasDetailPage: false,
+    label: "Game Project 2 — Mobile Puzzle Game",
+    title: "Pawn's Gambit",
+    image: "/projects/project_02.png",
+    hoverBackground: "/backgrounds/background_05.png",
+    description:
+      "Mainly worked on Enemy AI development for a mobile game project nominated for Game of the Year Mobile at The Rookies, winning Runner-Up and People's Choice.",
+    bullets: ["Enemy AI implementation", "Award-winning student project"],
+    playLink: "https://snackapawn.itch.io/pawns-gambit",
+    contributions: ["Enemy AI", "Gameplay Systems", "Optimization"],
+    trophies: [
+      "/awards/rookies_runnerup.png",
+      "/awards/rookies_peopleschoice.png",
+      "/awards/rookies_nominee.png",
+    ],
+  },
+  {
+    slug: "pig-game",
+    hasDetailPage: false,
+    label: "Game Project 1 — Endless Runner",
+    title: "When Pigs Fly",
+    image: "/backgrounds/background_07.png",
+    hoverBackground: "/backgrounds/background_07.png",
+    description:
+      "Mainly worked on player movement, checkpoint system and tutorial but also partook in lighting, setdressing, UI and optimization.",
+    bullets: ["Player Movement", "Checkpoint System", "Tutorial"],
+    playLink: "https://brandonmach.itch.io/when-pigs-fly",
+    contributions: ["Gameplay", "Tutorial", "UI", "Optimization"],
+  },
+  {
+    slug: "tba",
+    hasDetailPage: false,
+    label: "Game Project 7",
+    title: "TBA",
+    image: "/projects/project_07.png",
+    hoverBackground: "/backgrounds/background_02.png",
+    description:
+      "Upcoming project. Detailed information will be added once the project has been finished.",
+    bullets: [],
+    contributions: [],
+  },
+];
 
 export default function HomePage() {
-  const [activeBg, setActiveBg] = useState(0);
   const [hoveredBackground, setHoveredBackground] = useState(null);
 
-  const backgrounds = useMemo(
-    () => [
-      "/backgrounds/background_01.png",
-      "/backgrounds/background_02.png",
-      "/backgrounds/background_03.png",
-      "/backgrounds/background_04.png",
-      "/backgrounds/background_05.png",
-      "/backgrounds/background_06.png",
-      "/backgrounds/background_07.png",
-      "/backgrounds/background_08.png",
-      "/backgrounds/background_09.png",
-      "/backgrounds/background_10.png",
-    ],
-    []
-  );
-
-  useEffect(() => {
-    if (hoveredBackground) return;
-
-    const interval = setInterval(() => {
-      setActiveBg((prev) => (prev + 1) % backgrounds.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [backgrounds.length, hoveredBackground]);
-
-  const activeBackground = hoveredBackground || backgrounds[activeBg];
-
   return (
-    <div className="relative min-h-screen bg-[#070709] text-zinc-200">
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        {backgrounds.map((bg) => (
-          <img
-            key={bg}
-            src={bg}
-            alt=""
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[2200ms] ${
-              activeBackground === bg ? "opacity-80" : "opacity-0"
-            }`}
+    <BackgroundSlideshow hoveredBackground={hoveredBackground}>
+      <Header />
+
+      <div className="mx-auto max-w-6xl">
+        <RevealSection className="px-6 py-8 md:py-10" delay={100}>
+          <ProjectBlock
+            project={projects[0]}
+            onHoverStart={setHoveredBackground}
+            onHoverEnd={() => setHoveredBackground(null)}
+            featured
           />
-        ))}
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 backdrop-blur-[7px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(7,7,9,0.55),rgba(7,7,9,0.85))]" />
-      </div>
+        </RevealSection>
 
-      <div className="relative z-10 min-h-screen">
-        <Header />
-
-        <div className="mx-auto max-w-6xl">
-          <RevealSection className="px-6 py-8 md:py-10" delay={100}>
-            <ProjectBlock
-              project={projects[0]}
-              onHoverStart={setHoveredBackground}
-              onHoverEnd={() => setHoveredBackground(null)}
-              featured
-            />
-          </RevealSection>
-
-          <RevealSection
-            id="projects"
-            className="scroll-mt-24 px-6 py-8 md:py-10"
-            delay={180}
-          >
-            <div className="mb-8 flex items-end justify-between gap-6 border-b border-white/10 pb-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
-                  Projects
-                </p>
-                <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
-                  Group Projects
-                </h2>
-              </div>
-              <div className="hidden h-px flex-1 bg-white/10 md:block" />
+        <RevealSection
+          id="projects"
+          className="scroll-mt-24 px-6 py-8 md:py-10"
+          delay={180}
+        >
+          <div className="mb-8 flex items-end justify-between gap-6 border-b border-white/10 pb-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
+                Projects
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
+                Group Projects
+              </h2>
             </div>
-
-            <div className="space-y-12">
-              {projects.slice(1).map((project) => (
-                <ProjectBlock
-                  key={project.slug}
-                  project={project}
-                  onHoverStart={setHoveredBackground}
-                  onHoverEnd={() => setHoveredBackground(null)}
-                />
-              ))}
-            </div>
-          </RevealSection>
-
-          <div id="contact" className="mt-10 scroll-mt-24">
-            <Footer />
+            <div className="hidden h-px flex-1 bg-white/10 md:block" />
           </div>
-        </div>
 
-        <TopButton />
+          <div className="space-y-12">
+            {projects.slice(1).map((project) => (
+              <ProjectBlock
+                key={project.slug}
+                project={project}
+                onHoverStart={setHoveredBackground}
+                onHoverEnd={() => setHoveredBackground(null)}
+              />
+            ))}
+          </div>
+        </RevealSection>
+
+        <div id="contact" className="mt-10 scroll-mt-24">
+          <Footer />
+        </div>
       </div>
-    </div>
+
+      <TopButton />
+    </BackgroundSlideshow>
   );
 }
