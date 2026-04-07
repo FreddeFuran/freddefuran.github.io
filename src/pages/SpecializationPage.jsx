@@ -58,7 +58,7 @@ export default function SpecializationPage() {
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">Scope</p>
-            <p className="mt-2">4 weeks half-time, 3 weeks full-time</p>
+            <p className="mt-2">4 weeks quarter-time, 3 weeks half-time</p>
           </div>
         </section>
 
