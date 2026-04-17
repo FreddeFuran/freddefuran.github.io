@@ -103,7 +103,7 @@ export default function Header() {
                   : "max-h-5 opacity-100"
               }`}
             >
-              Engine/Tools Game Programmer
+              Game Programmer
             </div>
           </Link>
 
